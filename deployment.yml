@@ -6,6 +6,6 @@ metadata:
   name: testapp
 spec:
   containers:
-  - image: docker-registry/testapp:v1
+  - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
     name: testapp
   restartPolicy: Always
