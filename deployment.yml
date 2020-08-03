@@ -6,6 +6,6 @@ metadata:
   name: testapp
 spec:
   containers:
-  - image: testapp:v1
+  - image: docker-registry.p-cc9lc-pipeline/testapp:v1
     name: testapp
   restartPolicy: Always
