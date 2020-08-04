@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: testapp:v1
+      tag: testapp:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
       registry: 127.0.0.1:34459
 - name: deploy
