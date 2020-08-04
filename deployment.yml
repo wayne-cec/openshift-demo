@@ -6,6 +6,6 @@ metadata:
   name: testapp
 spec:
   containers:
-  - image: ${CICD_IMAGE}:v1
+  - image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
     name: testapp
   restartPolicy: Always
