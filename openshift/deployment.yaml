@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: openshift-demo
+  name: openshift-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openshift-demo
+  template:
+    metadata:
+      labels:
+        app: openshift-demo
+    spec:
+      containers:
+        - image: core.harbor.apps.g66666.hk.my-demo.tech/public/openshift-demo:v1
+          imagePullPolicy: Always
+          name: openshift-demo
+          ports:
+            - containerPort: 80
+              protocol: TCP
