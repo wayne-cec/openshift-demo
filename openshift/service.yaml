@@ -5,10 +5,10 @@ metadata:
     app: openshift-demo
   name: openshift-demo
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
-    - name: 80-tcp
-      targetPort: 80
+    - name: 8080-tcp
+      targetPort: 8080
       protocol: TCP
   selector:
     app: openshift-demo
