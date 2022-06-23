@@ -6,9 +6,10 @@ metadata:
   name: openshift-demo
 spec:
   host: openshift-demo-user1test.apps.g66666.hk.my-demo.tech
-  port:
-    targetPort: 80
   to:
     kind: Service
     name: openshift-demo
     weight: 100
+  port:
+    targetPort: 8080-tcp
+  wildcardPolicy: None
