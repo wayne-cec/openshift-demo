@@ -1,7 +1,6 @@
 #vi Dockerfile
-FROM quay.io/centos/centos:latest
+FROM quay.io/centos7/httpd-24-centos7:latest
 MAINTAINER NewstarCorporation
-RUN yum -y install httpd
 COPY index.html /var/www/html/
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 EXPOSE 80
