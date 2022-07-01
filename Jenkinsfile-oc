@@ -3,7 +3,7 @@ pipeline {
   
   environment {
     LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
-    PROJECT = 'openshift-demo'
+    PROJECT = 'web-openshift-demo'
   }   
   stages {
     stage('Preamble') {
