@@ -1,0 +1,66 @@
+pipeline {
+  agent any
+  
+  environment {
+    LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
+    PROJECT = 'openshift-demo'
+  }   
+  stages {
+    stage('Preamble') {
+      steps {
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${env.PROJECT}") {
+              echo "Using project: ${openshift.project()}"
+            }
+          }
+        }
+      }
+    }
+
+  stages {
+    stage ('build') {
+      steps {
+        sh '''
+          echo "add your build command here"
+        ''' 
+      }
+    }
+
+  stages {
+    stage ('test') {
+      steps {
+        sh '''
+          echo "add your test command here"
+        ''' 
+      }
+    }
+
+
+    stage('Delete') {
+      steps {
+        echo "Delete application"
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${env.PROJECT}") {
+              openshift.selector("all", [  'app' : 'openshift-demo' ]).delete()
+            }
+          }
+        }
+      }
+    }
+    
+    stage('Deploy') {
+      steps {
+        echo "Deploy application"
+        script {
+          openshift.withCluster() {
+            openshift.withProject("${env.PROJECT}") {
+              openshift.newApp('quay.io/centos7/httpd-24-centos7:latest~https://github.com/wayne-cec/openshift-demo', "--name=openshift-demo", "--strategy=source", "--allow-missing-images").narrow('svc').expose()
+            }
+          }
+        }
+      }
+    }
+  }
+}
