@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
-    PROJECT = 'web-openshift-demo'
+    PROJECT = 'user1test'
   }  
     stage('Login OKD') {
       steps {
@@ -17,11 +17,7 @@ pipeline {
 
       }
     }
-    stage('Delete Project') {
-      steps {
-        sh 'oc delete project web-openshift-demo'
-      }
-    }
+
   stages {
     stage ('build') {
       steps {
@@ -44,8 +40,7 @@ pipeline {
       steps {
         echo 'Create Project'
         script {
-          sh 'oc new-project web-openshift-demo'
-          sh 'oc project web-openshift-demo'
+          sh 'oc project user1test'
           echo "Using project: ${openshift.project()}"
         }
 
