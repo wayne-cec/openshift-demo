@@ -5,6 +5,8 @@ pipeline {
     LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
     PROJECT = 'user1test'
   }  
+  
+  stages {
     stage('Login OKD') {
       steps {
         withCredentials(bindings: [usernamePassword(
@@ -18,7 +20,7 @@ pipeline {
       }
     }
 
-  stages {
+
     stage ('build') {
       steps {
         sh '''
