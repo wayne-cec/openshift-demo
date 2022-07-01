@@ -39,17 +39,29 @@ pipeline {
       }
     }
 
+      stage('Delete Project') {
+      steps {
+        echo 'Create Project'
+        script {
+          sh 'oc delete project mydemo || true'
+        }
+
+      }
+    }
     
     stage('Create Project') {
       steps {
         echo 'Create Project'
         script {
-          sh 'oc project user1test'
+          sh 'oc new-project mydemo'
+          sh 'oc project mydemo'
           echo "Using project: ${openshift.project()}"
         }
 
       }
     }
+    
+    
     stage('Deploy') {
       steps {
         echo 'Deploy application'
