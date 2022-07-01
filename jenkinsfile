@@ -1,0 +1,73 @@
+pipeline {
+  agent any
+
+  environment {
+    LOGIN_URL = 'hhttps://api.g66666.hk.my-demo.tech:6443'
+    PROJECT = 'openshift-demo'
+  }  
+    stage('Login OKD') {
+      steps {
+        withCredentials(bindings: [usernamePassword(
+          		  credentialsId: 'okd-login-api-token', 
+          		  usernameVariable: 'USERNAME',
+          		  passwordVariable: 'MY_TOKEN',
+          		)]) {
+          sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=${MY_TOKEN}"
+        }
+
+      }
+    }
+    stage('Delete Project') {
+      steps {
+        sh 'oc delete project openshift-demo'
+      }
+    }
+  stages {
+    stage ('build') {
+      steps {
+        sh '''
+          echo "add your build command here"
+        ''' 
+      }
+    }
+
+  stages {
+    stage ('test') {
+      steps {
+        sh '''
+          echo "add your test command here"
+        ''' 
+      }
+    }
+    
+    stage('Create Project') {
+      steps {
+        echo 'Create Project'
+        script {
+          sh 'oc new-project openshift-demo'
+          sh 'oc project openshift-demo'
+          echo "Using project: ${openshift.project()}"
+        }
+
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploy application'
+        script {
+          sh 'oc new-app --name openshift-demo \'quay.io/centos7/httpd-24-centos7:latest~https://github.com/wayne-cec/openshift-demo\' --strategy=source --allow-missing-images '
+        }
+
+      }
+    }
+    stage('Expose') {
+      steps {
+        echo 'Expose Route'
+        script {
+          sh 'oc expose svc/openshift-demo'
+        }
+
+      }
+    }
+  }
+}
