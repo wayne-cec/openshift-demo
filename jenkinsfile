@@ -26,6 +26,7 @@ pipeline {
         ''' 
       }
     }
+    }
 
   stages {
     stage ('test') {
@@ -34,6 +35,7 @@ pipeline {
           echo "add your test command here"
         ''' 
       }
+    }
     }
     
     stage('Create Project') {
@@ -64,5 +66,5 @@ pipeline {
 
       }
     }
-  }
+  
 }
