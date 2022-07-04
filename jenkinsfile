@@ -54,6 +54,7 @@ pipeline {
         sh '''
           echo "Create Project"
         ''' 
+        sh "sleep 10"
         sh "oc new-project testaa"
         sh "oc project testaa"
       }
