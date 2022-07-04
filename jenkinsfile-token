@@ -14,7 +14,7 @@ pipeline {
           		  credentialsId: 'okd-login-token', 
           		  passwordVariable: 'MYTOKEN',
           		)]) {
-          sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=$MYTOKEN"
+          sh "oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=$MYTOKEN"
           sh "oc project $OLD_PROJECT"
         }
 
