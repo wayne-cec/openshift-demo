@@ -3,7 +3,8 @@ pipeline {
 
   environment {
     LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
-    PROJECT = 'user1test'
+    OLD_PROJECT = 'user1test'
+    NEW_PROJECT = 'testaa'
   }  
   
   stages {
@@ -15,7 +16,7 @@ pipeline {
           		  passwordVariable: 'PASSWORD',
           		)]) {
           sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true -u $USERNAME -p $PASSWORD"
-          sh "oc project $PROJECT"
+          sh "oc project $OLD_PROJECT"
         }
 
       }
@@ -40,23 +41,32 @@ pipeline {
       }
     }
   
-    stage ('Delete Old App') {
+    stage ('Delete Old Project') {
       steps {
         sh '''
-          echo "Delete Old App"
+          echo "Delete Old Project"
         ''' 
-        
-        sh "oc delete service,route,deployment,build,buildconfig --all -n testaa || true"
+        sh "oc delete svc,bc,deployment,build,route --all -n $NEW_PROJECT || true"
+        sh "oc delete project $NEW_PROJECT || true"
+        sh "sleep 20"
       }
     } 
    
+    stage ('Create Project') {
+      steps {
+        sh '''
+          echo "Create Project"
+        ''' 
+        
+        sh "oc new-project $NEW_PROJECT || true"
+      }
+    }
     
-    stage('Deploy New') {
+    stage('Deploy App') {
       steps {
         echo 'Deploy application'
         script {
-          sh "sleep 10"
-          sh "oc project testaa"
+          sh "oc project $NEW_PROJECT"
           sh 'oc new-app --name openshift-demo \'quay.io/centos7/httpd-24-centos7:latest~https://github.com/wayne-cec/openshift-demo\' --strategy=source --allow-missing-images '
         }
 
