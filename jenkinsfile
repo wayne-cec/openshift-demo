@@ -22,7 +22,7 @@ pipeline {
     }
 
 
-    stage ('build') {
+    stage ('Build') {
       steps {
         sh '''
           echo "add your build command here"
@@ -32,7 +32,7 @@ pipeline {
     
 
 
-    stage ('test') {
+    stage ('Unit Test') {
       steps {
         sh '''
           echo "add your test command here"
@@ -40,10 +40,10 @@ pipeline {
       }
     }
   
-    stage ('Delete project') {
+    stage ('Delete Old App') {
       steps {
         sh '''
-          echo "Delete Project"
+          echo "Delete Old App"
         ''' 
         
         sh "oc delete service,route,deployment,build,buildconfig --all -n testaa || true"
@@ -51,7 +51,7 @@ pipeline {
     } 
    
     
-    stage('Deploy') {
+    stage('Deploy New') {
       steps {
         echo 'Deploy application'
         script {
@@ -60,7 +60,7 @@ pipeline {
 
       }
     }
-    stage('Expose') {
+    stage('Expose Service') {
       steps {
         echo 'Expose Route'
         script {
