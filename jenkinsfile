@@ -46,7 +46,7 @@ pipeline {
           echo "Delete Project"
         ''' 
         
-        sh "oc delete service,route,deployment,build,buildconfig --all -n testaa"
+        sh "oc delete service,route,deployment,build,buildconfig --all -n testaa || true"
       }
     } 
    
