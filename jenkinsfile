@@ -40,6 +40,15 @@ pipeline {
       }
     }
   
+    stage ('Delete project') {
+      steps {
+        sh '''
+          echo "Delete Project"
+        ''' 
+        sh "oc delete project testaa"
+      }
+    } 
+  
      stage ('create project') {
       steps {
         sh '''
