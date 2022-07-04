@@ -40,6 +40,15 @@ pipeline {
       }
     }
   
+     stage ('create project') {
+      steps {
+        sh '''
+          echo "Create Project"
+        ''' 
+        sh "oc new-project testaa"
+        sh "oc project testaa"
+      }
+    } 
     
     stage('Deploy') {
       steps {
