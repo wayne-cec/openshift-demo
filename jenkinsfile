@@ -46,7 +46,7 @@ pipeline {
           echo "Delete Project"
         ''' 
         
-        sh "if `oc get ns | grep testaa`; then oc delete project testaa"
+        sh "if `oc get ns | grep testaa`; then oc delete project testaa; fi"
       }
     } 
   
