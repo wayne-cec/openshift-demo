@@ -15,6 +15,7 @@ pipeline {
           		  passwordVariable: 'MY_TOKEN',
           		)]) {
           sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true -u user1 -p user1"
+          sh "oc project $PROJECT"
         }
 
       }
@@ -38,29 +39,7 @@ pipeline {
         ''' 
       }
     }
-
-      stage('Delete Project') {
-      steps {
-        echo 'Create Project'
-        script {
-          sh 'oc delete project mydemo || true'
-        }
-
-      }
-    }
-    
-    stage('Create Project') {
-      steps {
-        echo 'Create Project'
-        script {
-          sh 'oc new-project mydemo'
-          sh 'oc project mydemo'
-          echo "Using project: ${openshift.project()}"
-        }
-
-      }
-    }
-    
+  
     
     stage('Deploy') {
       steps {
