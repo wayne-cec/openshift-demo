@@ -46,20 +46,10 @@ pipeline {
           echo "Delete Project"
         ''' 
         
-        sh "oc delete project testaa"
+        sh "oc delete service,route,deployment,build,buildconfig --all"
       }
     } 
-  
-     stage ('create project') {
-      steps {
-        sh '''
-          echo "Create Project"
-        ''' 
-        sh "sleep 10"
-        sh "oc new-project testaa"
-        sh "oc project testaa"
-      }
-    } 
+   
     
     stage('Deploy') {
       steps {
