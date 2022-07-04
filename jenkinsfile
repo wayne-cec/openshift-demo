@@ -10,11 +10,11 @@ pipeline {
     stage('Login OKD') {
       steps {
         withCredentials(bindings: [usernamePassword(
-          		  credentialsId: 'okd-login-api-token', 
+          		  credentialsId: 'okd-login-api-user', 
           		  usernameVariable: 'USERNAME',
-          		  passwordVariable: 'MY_TOKEN',
+          		  passwordVariable: 'PASSWORD',
           		)]) {
-          sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true -u user1 -p user1"
+          sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true -u $USERNAME -p $PASSWORD"
           sh "oc project $PROJECT"
         }
 
