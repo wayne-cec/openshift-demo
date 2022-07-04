@@ -56,6 +56,7 @@ pipeline {
         echo 'Deploy application'
         script {
           sh "sleep 10"
+          sh "oc project testaa"
           sh 'oc new-app --name openshift-demo \'quay.io/centos7/httpd-24-centos7:latest~https://github.com/wayne-cec/openshift-demo\' --strategy=source --allow-missing-images '
         }
 
