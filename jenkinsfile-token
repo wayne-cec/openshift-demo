@@ -5,14 +5,14 @@ pipeline {
     LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
     OLD_PROJECT = 'user1test'
     NEW_PROJECT = 'testaa'
+    MYTOKEN = 'sha256~cRBmv32hduq8Y46xI9KAzGhtu4E-6z-0v101s0Kxxo8'
   }  
   
   stages {
     stage('Login OKD') {
       steps {
-          sh "oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=sha256~cRBmv32hduq8Y46xI9KAzGhtu4E-6z-0v101s0Kxxo8 || true"
-          sh "oc project $OLD_PROJECT || true"
-          sh "echo  okokok"
+          sh "oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=$MYTOKEN"
+          sh "oc project $OLD_PROJECT"
         }
 
       }
