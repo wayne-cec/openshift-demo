@@ -9,13 +9,14 @@ pipeline {
   
   stages {
     stage('Login OKD') {
-       {
+      steps {
           sh "oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=sha256~cRBmv32hduq8Y46xI9KAzGhtu4E-6z-0v101s0Kxxo8 || true"
           sh "oc project $OLD_PROJECT || true"
+          sh "echo  okokok"
         }
 
       }
-    }
+
 
 
     stage ('Build') {
