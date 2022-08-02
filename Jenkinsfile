@@ -14,7 +14,7 @@ pipeline {
           		  usernameVariable: 'USERNAME',
           		  passwordVariable: 'PASSWORD',
           		)]) {
-         # sh "oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=${PASSWORD}"
+          sh "echo oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=${PASSWORD}"
           sh "oc login --token=sha256~0zyV_GwrWOFGvMsBYm5XpeRxpuFPj4Sen2qR5WL0JYw --server=https://api.g66666.hk.my-demo.tech:6443 --insecure-skip-tls-verify=true"
           sh "oc project $PROJECT"
         }
