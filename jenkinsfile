@@ -3,8 +3,7 @@ pipeline {
 
   environment {
     LOGIN_URL = 'https://api.g66666.hk.my-demo.tech:6443'
-    OLD_PROJECT = 'user1test'
-    NEW_PROJECT = 'testaa'
+    PROJECT = 'jenjins-demo'
   }  
   
   stages {
@@ -15,8 +14,8 @@ pipeline {
           		  usernameVariable: 'USERNAME',
           		  passwordVariable: 'PASSWORD',
           		)]) {
-          sh "oc login ${env.LOGIN_URL}  --insecure-skip-tls-verify=true -u $USERNAME -p $PASSWORD"
-          sh "oc project $OLD_PROJECT"
+          sh "oc login --server=${env.LOGIN_URL}  --insecure-skip-tls-verify=true --token=${PASSWORD}"
+          sh "oc project $PROJECT"
         }
 
       }
@@ -46,8 +45,8 @@ pipeline {
         sh '''
           echo "Delete Old Project"
         ''' 
-        sh "oc delete svc,bc,deployment,build,route --all -n $NEW_PROJECT || true"
-        sh "oc delete project $NEW_PROJECT || true"
+        sh "oc delete svc,bc,deployment,build,route --all -n $PROJECT || true"
+        sh "oc delete project $PROJECT || true"
         sh "sleep 20"
       }
     } 
@@ -58,7 +57,7 @@ pipeline {
           echo "Create Project"
         ''' 
         
-        sh "oc new-project $NEW_PROJECT || true"
+        sh "oc new-project $PROJECT || true"
       }
     }
     
@@ -66,7 +65,7 @@ pipeline {
       steps {
         echo 'Deploy application'
         script {
-          sh "oc project $NEW_PROJECT"
+          sh "oc project $PROJECT"
           sh 'oc new-app --name openshift-demo \'quay.io/centos7/httpd-24-centos7:latest~https://github.com/wayne-cec/openshift-demo\' --strategy=source --allow-missing-images '
         }
 
