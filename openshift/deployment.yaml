@@ -15,7 +15,7 @@ spec:
         app: openshift-demo
     spec:
       containers:
-        - image: core.harbor.apps.g66666.hk.my-demo.tech/public/openshift-demo:v1
+        - image: harbor.example.com/library/openshift-demo:v1
           imagePullPolicy: Always
           name: openshift-demo
           ports:
